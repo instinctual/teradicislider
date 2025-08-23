@@ -33,9 +33,9 @@ class PCoIPImageQualityApp:
             from_=0,
             to=100,
             orient=tk.HORIZONTAL,
-            length=300,
-            width=30,  # Increase track thickness for taller appearance
-            sliderlength=60,  # Increase handle size
+            length=235,
+            width=15,  # Increase track thickness for taller appearance
+            sliderlength=40,  # Increase handle size
             resolution=1,
             command=self.update_quality
         )
@@ -118,5 +118,5 @@ class PCoIPImageQualityApp:
 if __name__ == "__main__":
     root = tk.Tk()
     app = PCoIPImageQualityApp(root)
-    root.geometry("330x135")  # Adjusted window size for larger slider
+    root.geometry("270x115")  # Adjusted window size for larger slider
     root.mainloop()
