@@ -17,11 +17,12 @@ class PCoIPImageQualityApp:
         self.drag_start_x = 0
         self.drag_start_y = 0
         
-        # Define dark grey color
-        self.dark_grey = "#333333"
+        # Define colors
+        self.dark_grey = "#333333"  # Background color
+        self.text_grey = "#A6A6A6"  # 65% grey for text and slider number
         
         # Create a background frame for dragging
-        self.drag_frame = tk.Frame(self.root, bg=self.dark_grey, width=270, height=115)
+        self.drag_frame = tk.Frame(self.root, bg=self.dark_grey, width=250, height=110)
         self.drag_frame.pack(fill="both", expand=True)
         self.drag_frame.pack_propagate(False)  # Prevent frame from resizing
         
@@ -48,11 +49,11 @@ class PCoIPImageQualityApp:
         self.label = tk.Label(
             self.drag_frame,
             text="Teradici Quality",
-            font=("Helvetica", 10),  # Smaller font size
+            font=("Helvetica", 10),  # 10-point font
             bg=self.dark_grey,      # Match background
-            fg="white"              # White text for contrast
+            fg=self.text_grey       # 65% grey text
         )
-        self.label.pack(pady=(10, 0))  # Small padding above, none below
+        self.label.pack(pady=(5, 0))  # Reduced padding
         
         # Create and configure the slider
         self.slider = tk.Scale(
@@ -66,24 +67,25 @@ class PCoIPImageQualityApp:
             resolution=1,
             command=self.update_quality,
             bg=self.dark_grey,           # Background of slider
+            fg=self.text_grey,           # 65% grey for tick mark labels
             troughcolor=self.dark_grey,  # Slider track color
             highlightthickness=0         # Remove border highlight
         )
         self.slider.set(self.current_quality)
-        self.slider.pack(pady=(5, 10))  # Adjusted padding for label
+        self.slider.pack(pady=(2, 5))  # Reduced padding
         
         # Create a frame for buttons
         self.button_frame = tk.Frame(self.drag_frame, bg=self.dark_grey)
-        self.button_frame.pack(pady=10)
+        self.button_frame.pack(pady=5)  # Reduced padding
         
         # Default button
         self.default_button = tk.Button(
             self.button_frame,
             text="Default",
-            font=("Helvetica", 12),
+            font=("Helvetica", 10),   # 10-point font
             command=self.set_default_quality,
             bg=self.dark_grey,         # Button background
-            fg="white",               # Text color for contrast
+            fg=self.text_grey,         # 65% grey text
             activebackground="#555555",  # Slightly lighter grey when clicked
             highlightthickness=0      # Remove border highlight
         )
@@ -93,10 +95,10 @@ class PCoIPImageQualityApp:
         self.exit_button = tk.Button(
             self.button_frame,
             text="Exit",
-            font=("Helvetica", 12),
+            font=("Helvetica", 10),   # 10-point font
             command=self.root.destroy,
             bg=self.dark_grey,         # Button background
-            fg="white",               # Text color for contrast
+            fg=self.text_grey,         # 65% grey text
             activebackground="#555555",  # Slightly lighter grey when clicked
             highlightthickness=0      # Remove border highlight
         )
@@ -161,5 +163,5 @@ class PCoIPImageQualityApp:
 if __name__ == "__main__":
     root = tk.Tk()
     app = PCoIPImageQualityApp(root)
-    root.geometry("270x135")  # Increased height to accommodate label
+    root.geometry("250x110")  # Smaller window size
     root.mainloop()
