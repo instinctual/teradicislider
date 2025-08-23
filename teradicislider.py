@@ -17,8 +17,11 @@ class PCoIPImageQualityApp:
         self.drag_start_x = 0
         self.drag_start_y = 0
         
+        # Define dark grey color
+        self.dark_grey = "#333333"
+        
         # Create a background frame for dragging
-        self.drag_frame = tk.Frame(self.root, bg="gray", width=270, height=115)
+        self.drag_frame = tk.Frame(self.root, bg=self.dark_grey, width=270, height=115)
         self.drag_frame.pack(fill="both", expand=True)
         self.drag_frame.pack_propagate(False)  # Prevent frame from resizing
         
@@ -43,7 +46,7 @@ class PCoIPImageQualityApp:
         
         # Create and configure the slider
         self.slider = tk.Scale(
-            self.drag_frame,  # Place slider in drag_frame
+            self.drag_frame,
             from_=0,
             to=100,
             orient=tk.HORIZONTAL,
@@ -51,13 +54,16 @@ class PCoIPImageQualityApp:
             width=15,
             sliderlength=40,
             resolution=1,
-            command=self.update_quality
+            command=self.update_quality,
+            bg=self.dark_grey,           # Background of slider
+            troughcolor=self.dark_grey,  # Slider track color
+            highlightthickness=0         # Remove border highlight
         )
         self.slider.set(self.current_quality)
         self.slider.pack(pady=10)
         
         # Create a frame for buttons
-        self.button_frame = tk.Frame(self.drag_frame, bg="gray")
+        self.button_frame = tk.Frame(self.drag_frame, bg=self.dark_grey)
         self.button_frame.pack(pady=10)
         
         # Default button
@@ -65,7 +71,11 @@ class PCoIPImageQualityApp:
             self.button_frame,
             text="Default",
             font=("Helvetica", 12),
-            command=self.set_default_quality
+            command=self.set_default_quality,
+            bg=self.dark_grey,         # Button background
+            fg="white",               # Text color for contrast
+            activebackground="#555555",  # Slightly lighter grey when clicked
+            highlightthickness=0      # Remove border highlight
         )
         self.default_button.pack(side=tk.LEFT, padx=5)
         
@@ -74,7 +84,11 @@ class PCoIPImageQualityApp:
             self.button_frame,
             text="Exit",
             font=("Helvetica", 12),
-            command=self.root.destroy
+            command=self.root.destroy,
+            bg=self.dark_grey,         # Button background
+            fg="white",               # Text color for contrast
+            activebackground="#555555",  # Slightly lighter grey when clicked
+            highlightthickness=0      # Remove border highlight
         )
         self.exit_button.pack(side=tk.LEFT, padx=5)
         
