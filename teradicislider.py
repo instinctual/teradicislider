@@ -44,6 +44,16 @@ class PCoIPImageQualityApp:
         # Get initial value
         self.current_quality = self.get_current_quality()
         
+        # Create and configure the label
+        self.label = tk.Label(
+            self.drag_frame,
+            text="Teradici Quality",
+            font=("Helvetica", 10),  # Smaller font size
+            bg=self.dark_grey,      # Match background
+            fg="white"              # White text for contrast
+        )
+        self.label.pack(pady=(10, 0))  # Small padding above, none below
+        
         # Create and configure the slider
         self.slider = tk.Scale(
             self.drag_frame,
@@ -60,7 +70,7 @@ class PCoIPImageQualityApp:
             highlightthickness=0         # Remove border highlight
         )
         self.slider.set(self.current_quality)
-        self.slider.pack(pady=10)
+        self.slider.pack(pady=(5, 10))  # Adjusted padding for label
         
         # Create a frame for buttons
         self.button_frame = tk.Frame(self.drag_frame, bg=self.dark_grey)
@@ -151,5 +161,5 @@ class PCoIPImageQualityApp:
 if __name__ == "__main__":
     root = tk.Tk()
     app = PCoIPImageQualityApp(root)
-    root.geometry("270x115")
+    root.geometry("270x135")  # Increased height to accommodate label
     root.mainloop()
