@@ -64,7 +64,7 @@ class PCoIPImageQualityApp:
             length=235,
             width=15,
             sliderlength=40,
-            resolution=1,
+            resolution=5,  # Move in increments of 5
             command=self.update_quality,
             bg=self.dark_grey,           # Background of slider
             fg=self.text_grey,           # 65% grey for tick mark labels
