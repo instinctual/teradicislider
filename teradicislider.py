@@ -162,6 +162,13 @@ class PCoIPImageQualityApp:
 
 if __name__ == "__main__":
     root = tk.Tk()
+    # Center the window
+    window_width = 250
+    window_height = 110
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    x = (screen_width - window_width) // 2
+    y = (screen_height - window_height) // 2
+    root.geometry(f"{window_width}x{window_height}+{x}+{y}")
     app = PCoIPImageQualityApp(root)
-    root.geometry("250x110")  # Smaller window size
     root.mainloop()
