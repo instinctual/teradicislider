@@ -7,10 +7,24 @@ class PCoIPImageQualityApp:
     def __init__(self, root, config_file="/etc/pcoip-agent/pcoip-agent.conf"):
         self.root = root
         self.config_file = config_file
-        self.root.title("Teradici Quality")
+        self.root.overrideredirect(True)  # Remove window title bar and decorations
+        self.root.title("Teradici Quality")  # Title won't be visible
         
         # Set window to always stay on top
         self.root.attributes('-topmost', True)
+        
+        # Variables for dragging
+        self.drag_start_x = 0
+        self.drag_start_y = 0
+        
+        # Create a background frame for dragging
+        self.drag_frame = tk.Frame(self.root, bg="gray", width=270, height=115)
+        self.drag_frame.pack(fill="both", expand=True)
+        self.drag_frame.pack_propagate(False)  # Prevent frame from resizing
+        
+        # Bind drag events to the background frame
+        self.drag_frame.bind("<Button-1>", self.start_drag)
+        self.drag_frame.bind("<B1-Motion>", self.on_drag)
         
         # Check if crudini is installed
         if not self.check_crudini():
@@ -29,13 +43,13 @@ class PCoIPImageQualityApp:
         
         # Create and configure the slider
         self.slider = tk.Scale(
-            root,
+            self.drag_frame,  # Place slider in drag_frame
             from_=0,
             to=100,
             orient=tk.HORIZONTAL,
             length=235,
-            width=15,  # Increase track thickness for taller appearance
-            sliderlength=40,  # Increase handle size
+            width=15,
+            sliderlength=40,
             resolution=1,
             command=self.update_quality
         )
@@ -43,7 +57,7 @@ class PCoIPImageQualityApp:
         self.slider.pack(pady=10)
         
         # Create a frame for buttons
-        self.button_frame = tk.Frame(root)
+        self.button_frame = tk.Frame(self.drag_frame, bg="gray")
         self.button_frame.pack(pady=10)
         
         # Default button
@@ -64,6 +78,15 @@ class PCoIPImageQualityApp:
         )
         self.exit_button.pack(side=tk.LEFT, padx=5)
         
+    def start_drag(self, event):
+        self.drag_start_x = event.x_root - self.root.winfo_x()
+        self.drag_start_y = event.y_root - self.root.winfo_y()
+    
+    def on_drag(self, event):
+        x = event.x_root - self.drag_start_x
+        y = event.y_root - self.drag_start_y
+        self.root.geometry(f"+{x}+{y}")
+    
     def check_crudini(self):
         try:
             subprocess.run(["crudini", "--version"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -73,7 +96,6 @@ class PCoIPImageQualityApp:
     
     def get_current_quality(self):
         try:
-            # If your config file has a section header like [pcoip], replace '' with 'pcoip' below
             result = subprocess.run(
                 ["crudini", "--get", self.config_file, "", "pcoip.maximum_initial_image_quality"],
                 check=True,
@@ -83,13 +105,11 @@ class PCoIPImageQualityApp:
             )
             return int(result.stdout.strip())
         except (subprocess.CalledProcessError, ValueError):
-            # Default to 85 if not found or invalid
             return 85
     
     def update_quality(self, value):
         try:
             quality = int(value)
-            # If your config file has a section header like [pcoip], replace '' with 'pcoip' below
             subprocess.run(
                 ["sudo", "crudini", "--set", self.config_file, "", "pcoip.maximum_initial_image_quality", str(quality)],
                 check=True,
@@ -103,7 +123,6 @@ class PCoIPImageQualityApp:
     def set_default_quality(self):
         try:
             quality = 80
-            # If your config file has a section header like [pcoip], replace '' with 'pcoip' below
             subprocess.run(
                 ["sudo", "crudini", "--set", self.config_file, "", "pcoip.maximum_initial_image_quality", str(quality)],
                 check=True,
@@ -114,9 +133,9 @@ class PCoIPImageQualityApp:
             self.slider.set(quality)
         except subprocess.CalledProcessError as e:
             messagebox.showerror("Error", f"Failed to set default quality: {e.stderr}")
-    
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = PCoIPImageQualityApp(root)
-    root.geometry("270x115")  # Adjusted window size for larger slider
+    root.geometry("270x115")
     root.mainloop()
