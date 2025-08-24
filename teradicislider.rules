@@ -1,0 +1,1 @@
+ALL ALL=(ALL) NOPASSWD: /usr/bin/crudini --set /etc/pcoip-agent/pcoip-agent.conf "" pcoip.maximum_initial_image_quality [0-9]*

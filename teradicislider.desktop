@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Instinctual Teradici Slider
+Type=Application
+Exec=python3 /opt/instinctual/teradicislider/teradicislider.py
+Name[en_US]=Instinctual Teradici Slider
+Categories=Network;
+Icon=/opt/instinctual/teradicislider/teradicislider.png
