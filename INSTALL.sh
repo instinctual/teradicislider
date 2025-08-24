@@ -92,11 +92,12 @@ if [[ $ACTION == "install" ]]; then
     install -m 440 teradicislider.rules /etc/sudoers.d/teradicislider
     install -m 444 teradicislider.desktop /usr/share/applications/teradicislider.desktop
 
+    /usr/bin/crudini --set /etc/pcoip-agent/pcoip-agent.conf "quality" pcoip.maximum_initial_image_quality 80
 
 elif [[ "$ACTION" == "uninstall" ]]; then
 
-  rm -vf /etc/sudoers.d/teradiciclider
-  rm -vf /usr/share/applications/teradiciclider.desktop
+  rm -vf /etc/sudoers.d/teradicislider
+  rm -vf /usr/share/applications/teradicislider.desktop
   rm -vrf "$INSTALLDIR"
   
   # Check if the INSDIR

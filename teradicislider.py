@@ -123,7 +123,7 @@ class PCoIPImageQualityApp:
     def get_current_quality(self):
         try:
             result = subprocess.run(
-                ["crudini", "--get", self.config_file, "", "pcoip.maximum_initial_image_quality"],
+                ["crudini", "--get", self.config_file, "quality", "pcoip.maximum_initial_image_quality"],
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -137,7 +137,7 @@ class PCoIPImageQualityApp:
         try:
             quality = int(value)
             subprocess.run(
-                ["sudo", "crudini", "--set", self.config_file, "", "pcoip.maximum_initial_image_quality", str(quality)],
+                ["sudo", "crudini", "--set", self.config_file, "quality", "pcoip.maximum_initial_image_quality", str(quality)],
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -150,7 +150,7 @@ class PCoIPImageQualityApp:
         try:
             quality = 80
             subprocess.run(
-                ["sudo", "crudini", "--set", self.config_file, "", "pcoip.maximum_initial_image_quality", str(quality)],
+                ["sudo", "crudini", "--set", self.config_file, "quality", "pcoip.maximum_initial_image_quality", str(quality)],
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
