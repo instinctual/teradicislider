@@ -94,6 +94,8 @@ if [[ $ACTION == "install" ]]; then
 
     /usr/bin/crudini --set /etc/pcoip-agent/pcoip-agent.conf "quality" pcoip.maximum_initial_image_quality 80
 
+    echo "Teradici Slider has been installed."
+
 elif [[ "$ACTION" == "uninstall" ]]; then
 
   rm -vf /etc/sudoers.d/teradicislider
