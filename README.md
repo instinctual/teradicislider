@@ -10,7 +10,7 @@ When connecting to a Teradici session for the first time after a machine reboot,
 Teradici slider is made for Linux based OSes and only tested on RockyLinux 9.x.
 
 ## Install
-run ./INSTALL.sh --install
+sudo ./INSTALL.sh --install
 
 The script will check if `crudini`is installed, and if not, will attempt to download and install it.  This requires internet access.
 
@@ -20,4 +20,4 @@ A sudo rule is also created in `/etc/sudoers.d/teradicislider` which allows ANY 
 That is it.
 
 ## Un-Install
-./INSTALL.sh --uninstall
+sudo ./INSTALL.sh --uninstall
